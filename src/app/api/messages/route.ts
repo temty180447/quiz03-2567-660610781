@@ -96,7 +96,7 @@ export const DELETE = async (request: NextRequest) => {
   const body = await request.json();
   const { messageId } = body;
 
-  const messageIndex = DB.messages.findIndex((m) => m.messageId === messageId);
+  const messageIndex = DB.messages.findIndex((messages) => messages.messageId === messageId);
 
   if (messageIndex === -1) {
     return NextResponse.json(
