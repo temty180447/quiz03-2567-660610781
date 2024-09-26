@@ -70,14 +70,14 @@ const adapter = onProduction
   ? new MemorySync()
   : new JSONFileSync("DatabaseFile.json");
 let lowDB = new LowSync(adapter, originalDB);
-export let DB: any = onProduction ? _.cloneDeep(originalDB) : lowDB.data;
+export let DB: tDB = onProduction ? _.cloneDeep(originalDB) : lowDB.data as tDB;
 
 export function resetDB() {
   if (onProduction) {
     DB = _.cloneDeep(originalDB);
   } else {
     lowDB = new LowSync(adapter, originalDB);
-    DB = lowDB.data;
+    DB = lowDB.data as tDB;
     lowDB.write();
   }
 }
@@ -85,7 +85,7 @@ export function resetDB() {
 export function readDB() {
   if (!onProduction) {
     lowDB.read();
-    DB = lowDB.data;
+    DB = lowDB.data as tDB;
   }
 }
 

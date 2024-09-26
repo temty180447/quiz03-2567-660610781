@@ -5,9 +5,9 @@ import { NextRequest, NextResponse } from "next/server";
 
 export const POST = async (request: NextRequest) => {
   readDB();
-
   const body = await request.json()
   const { username, password } = body;
+
   const user = DB.users.find(
     (user: User) => user.username === username && user.password === password
   )
@@ -23,6 +23,7 @@ export const POST = async (request: NextRequest) => {
   }
 
   const secret = process.env.JWT_SECRET || "This is another secret";
+
   const token = jwt.sign(
     { username, role: user.role },
     secret,

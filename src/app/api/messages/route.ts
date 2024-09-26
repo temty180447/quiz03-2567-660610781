@@ -7,7 +7,8 @@ export const GET = async (request: NextRequest) => {
   readDB();
 
   const roomId = request.nextUrl.searchParams.get("roomId");
-  const foundRoom = DB.rooms.find((rom) => rom.roomId === roomId);
+
+  const foundRoom = DB.rooms.find((rooms) => rooms.roomId === roomId);
 
   if (!foundRoom) {
     return NextResponse.json(
@@ -19,7 +20,7 @@ export const GET = async (request: NextRequest) => {
     );
   }
 
-  const messages = DB.messages.filter((mass) => mass.roomId === roomId);
+  const messages = DB.messages.filter((messages) => messages.roomId === roomId);
 
   return NextResponse.json(
     {
@@ -34,7 +35,7 @@ export const POST = async (request: NextRequest) => {
   const body = await request.json()
   const { roomId, messageText } = body
 
-  const foundRoom = DB.rooms.find((rom) => rom.roomId === roomId);
+  const foundRoom = DB.rooms.find((rooms) => rooms.roomId === roomId);
 
   if (!foundRoom) {
     return NextResponse.json(
@@ -94,7 +95,8 @@ export const DELETE = async (request: NextRequest) => {
 
   const body = await request.json();
   const { messageId } = body;
-  const messageIndex = DB.messages.findIndex((mass) => mass.messageId === messageId);
+
+  const messageIndex = DB.messages.findIndex((m) => m.messageId === messageId);
 
   if (messageIndex === -1) {
     return NextResponse.json(

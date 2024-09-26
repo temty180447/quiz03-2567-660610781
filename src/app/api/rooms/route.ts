@@ -28,7 +28,7 @@ export const POST = async (request: NextRequest) => {
   const body = await request.json();
   const { roomName } = body;
   const foundRoom = DB.rooms.find(
-    (rom) => rom.roomName === roomName
+    (r) => r.roomName === roomName
   )
 
   if (foundRoom) {
